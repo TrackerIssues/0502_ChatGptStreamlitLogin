@@ -2,6 +2,7 @@ import openai
 import streamlit as st
 
 openai.api_key = st.secrets["OpenAiApiKey"] 
+# openai.api_key = ""
 
 
 def RequestChatGpt( 
