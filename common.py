@@ -1,8 +1,11 @@
 import openai
 import streamlit as st
 
-openai.api_key = st.secrets["OpenAiApiKey"] 
-# openai.api_key = ""
+from dotenv import load_dotenv
+load_dotenv()
+
+# openai.api_key = st.secrets["OpenAiApiKey"] 
+# openai.api_key = os.getenv('OPENAI_API_KEY')
 
 
 def RequestChatGpt( 
@@ -36,4 +39,26 @@ def PrintStreamResponse( response ) :
         else :
             break
     oPlaceHolder.markdown(sMessage)
+    return sMessage
+
+def ConsolePrintStreamResponse( response ) :
+    sMessage = ""
+    for chunk in response :
+        delta = chunk.choices[0]["delta"]
+        if "content" in delta :
+            sMessage += delta["content"]
+            print(delta["content"], end="")
+        else :
+            break
+    return sMessage
+
+def PrintStreamResponseConsole( response ) :
+    sMessage = ""
+    for chunk in response :
+        delta = chunk.choices[0]["delta"]
+        if "content" in delta :
+            sMessage += delta["content"]
+            print(delta["content"], end="")
+        else :
+            break
     return sMessage

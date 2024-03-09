@@ -1,1 +1,4 @@
 openai==0.28
+streamlit_authenticator
+
+python-dotenv

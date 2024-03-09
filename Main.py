@@ -38,7 +38,7 @@ credentials = {
 
 
 # authenticator = stauth.Authenticate(credentials, "app_home", "auth", cookie_expiry_days=30)
-st.session_state["Auth"] = stauth.Authenticate(credentials, "app_home", "auth", cookie_expiry_days=30)
+st.session_state["Auth"] = stauth.Authenticate(credentials, "app_home", "auth", cookie_expiry_days=1)
 
 # sName, bAuthentication_status, sUsername = authenticator.login("main")
 sName, bAuthentication_status, sUsername = st.session_state["Auth"].login("main")

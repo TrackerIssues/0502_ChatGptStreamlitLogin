@@ -14,10 +14,18 @@ if bAuthentication_status :
     st.sidebar.title(f"Welcome {sName} !")
         
 
-    st.title("✍️ ChatGpt Api Copy Writer Service")
-    st.subheader("AI를 이용해서 손쉽게 마케팅 문구를 작성해 보세요!")
+    st.title("🖋️ ChatGpt Copy Writer Service")
+    st.subheader("손쉽게 홍보 문구를 작성해 보세요!")
 
-    bCheckInput = st.toggle("예시로 채우기")
+    col1, col2, col3 = st.columns(3)
+    with col1 :
+        bCheckInput = st.toggle("예시로 채우기")
+    with col2 :
+        pass
+    with col3 :
+        bEng = st.toggle("영어로 작성")
+
+
     dicExample ={
         "sProductName" : "만성질환 예측모형 개발",
         "sProductDesc" : "고혈압 AI 예측모형 개발",
@@ -39,6 +47,7 @@ if bAuthentication_status :
     키워드 : {lstKeyWord}
     ---
     """.strip()
+    
 
     with st.form("form") :
         col1, col2, col3 = st.columns(3)
@@ -51,17 +60,17 @@ if bAuthentication_status :
             iMaxWord = st.number_input(
             label="최대 단어 수",
             min_value=5,
-            max_value=20,
+            max_value=100,
             step=1,
-            value=10
+            value=7
         )
         with col3 :
             iScript = st.number_input(
             label="생성할 문구 수",
             min_value=1,
-            max_value=20,
+            max_value=100,
             step=1,
-            value=5
+            value=3
         )
         
         sDescript = st.text_input(
@@ -110,7 +119,13 @@ if bAuthentication_status :
                         sProductDesc = sDescript,
                         lstKeyWord = lstKeyWord
                     )
+
+
+            if bEng :
+                sRole = "당신은 미국인 전문 카피라이터이고 반드시 영어로만 작성해야 합니다"
+                sQuery = "다음 내용을 반드시 영어로 작성해야 합니다\n" + sQuery
             
+
             with st.spinner("카피를 생성 중 입니다!") :    
                 res = RequestChatGpt(
                     sPrompt= sQuery,
@@ -122,7 +137,7 @@ if bAuthentication_status :
 
 
 
-            st.success("카피를 작성합니다!")
+            st.success("카피를 작성했습니다!")
 
 else :
     # st.error("Login First!")
